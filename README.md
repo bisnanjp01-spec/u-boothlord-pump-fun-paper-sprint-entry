@@ -23,7 +23,7 @@ Strategy — a confirmed-momentum sniper with fast exits:
 - Never chase a coin already up more than 200% from launch.
 - One small fixed stake per coin (at most 1% of the coin's real reserve,
   the harness cap), at most five open positions.
-- Every position carries a take-profit (+25%), a tight stop-loss (-5%),
+- Every position carries a take-profit (+30%), a tight stop-loss (-5%),
   a trailing exit off its peak, and a short time exit (~4 minutes with
   no progress), so capital keeps recycling into fresh coins.
 
@@ -37,7 +37,7 @@ two replays of the same window produce byte-identical action logs.
 | Buy size | 0.20 SOL, capped at 1% of real reserve | Harness cap; keeps one rug small |
 | Entry | +5% from launch, still +5% over the last ~2 min, ≥0.30 SOL buys, ≥3 buys, buys ≥1.5× sells | Confirmation filters one-trade spikes |
 | Never chase | skip coins already up >200% from launch | The worst single-trade losses came from vertical runners |
-| Take-profit | +25% (checked on every trade event, not just batch end) | Banks the spikes that persist ≥2 slots |
+| Take-profit | +30% (checked on every trade event, not just batch end) | Banks the spikes that persist ≥2 slots; +30% beat +25%/+40%/+60% on the dev window |
 | Stop-loss | −5% | Cuts losers before the dump finishes |
 | Trailing exit | after +15%, sell on a 5-point give-back | Lets runners run, exits on the first pullback |
 | Time exit | ~4 min with <+5% | Recycles capital into fresh coins |
@@ -46,9 +46,10 @@ two replays of the same window produce byte-identical action logs.
 ## Local result
 
 Tuned on the kit's frozen dev window (24h of pump.fun data, replayed per
-slot with 2-slot latency and the documented fees): +0.05 SOL net PnL,
-137 round trips, 2.2% max drawdown. The final window is fresh data, so
-treat that as a guide, not a promise.
+slot with 2-slot latency and the documented fees, graded with the kit's
+own grade-local on the real harness): **+0.0365 SOL net PnL**, 138 round
+trips, 2.2% max drawdown. The final window is fresh data, so treat that
+as a guide, not a promise.
 
 ## License
 

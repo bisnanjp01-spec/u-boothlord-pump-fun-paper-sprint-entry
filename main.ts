@@ -22,7 +22,7 @@
 //   * One small fixed stake per coin (at most 1% of the coin's real
 //     reserve, the harness cap), at most five open positions, so a
 //     single rug can never sink the book.
-//   * Every position carries a take-profit (+25%), a tight stop-loss
+//   * Every position carries a take-profit (+30%), a tight stop-loss
 //     (-5%), a trailing exit off its peak and a short time exit (~4
 //     minutes with no progress), so capital keeps recycling into fresh
 //     coins. The guardrail needs round trips on at least twenty coins,
@@ -35,9 +35,9 @@
 //     Order ids come from a counter, candidates are taken in event order,
 //     so two replays of the same window produce byte-identical action logs.
 //
-// Tuned on the kit's frozen dev window (24h of pump.fun data, replayed
-// per slot with 2-slot latency and the documented fees): +0.05 SOL net,
-// 137 round trips, 2.2% max drawdown. The final window is fresh data, so
+// Tuned on the kit's frozen dev window (24h of pump.fun data, graded with
+// the kit's own grade-local on the real harness): +0.0365 SOL net,
+// 138 round trips, 2.2% max drawdown. The final window is fresh data, so
 // these numbers are a guide, not a promise.
 
 import * as readline from "node:readline";
@@ -61,7 +61,7 @@ const MIN_BUY_FLOW_LAMPORTS = 300_000_000; // >= 0.30 SOL of buys since launch
 const MIN_BUY_COUNT = 3; // at least 3 separate buys since launch
 const MIN_BUY_SELL_RATIO = 1.5; // buy volume at least 1.5x sell volume
 
-const TAKE_PROFIT = 0.25; // sell at +25%
+const TAKE_PROFIT = 0.3; // sell at +30%
 const STOP_LOSS = -0.05; // sell at -5%
 const TRAIL_TRIGGER = 0.15; // once up 15%, trail...
 const TRAIL_GIVEBACK = 0.05; // ...and sell after giving back 5 points from peak
